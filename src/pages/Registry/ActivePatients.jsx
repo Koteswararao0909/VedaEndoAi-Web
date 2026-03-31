@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, Search, User, ChevronRight, Loader2, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import API_CONFIG from '../../APIConfig';
+import API_CONFIG from '../../api';
 
 export default function ActivePatients() {
     const navigate = useNavigate();

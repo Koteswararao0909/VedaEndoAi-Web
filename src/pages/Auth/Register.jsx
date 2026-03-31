@@ -1,7 +1,7 @@
 import { User, Mail, Hash, Stethoscope, Building2, Lock, Eye, EyeOff, ChevronRight, ShieldCheck, AlertCircle, Loader2, MapPin, Phone, GraduationCap, Clock, Circle, CheckCircle2 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
-import API_CONFIG from '../../APIConfig';
+import API_CONFIG from '../../api';
 
 function Register() {
     const navigate = useNavigate();

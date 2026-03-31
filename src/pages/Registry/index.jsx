@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Loader2, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import API_CONFIG from '../../APIConfig';
+import API_CONFIG from '../../api';
 
 export default function Registry() {
     const navigate = useNavigate();
@@ -17,7 +17,10 @@ export default function Registry() {
         const fetchPatients = async () => {
             if (!userEmail) { navigate('/login'); return; }
             try {
-                const response = await fetch(API_CONFIG.PATIENTS.LIST(userEmail));
+                const userToken = localStorage.getItem('userToken');
+                const response = await fetch(API_CONFIG.PATIENTS.LIST(userEmail), {
+                    headers: { 'Authorization': `Bearer ${userToken}` }
+                });
                 const data = await response.json();
                 if (response.ok) setPatients(data);
                 else setError('Failed to load patient records');
@@ -38,8 +41,10 @@ export default function Registry() {
 
     const handleDeletePatient = async (id) => {
         try {
+            const userToken = localStorage.getItem('userToken');
             const response = await fetch(API_CONFIG.PATIENTS.DELETE(id), {
                 method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${userToken}` }
             });
             if (response.ok) {
                 setPatients(patients.filter(p => p.id !== id));

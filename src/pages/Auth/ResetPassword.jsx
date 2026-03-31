@@ -1,7 +1,7 @@
 import { ChevronLeft, Circle, CheckCircle2, Mail, Info, ShieldCheck, Phone, Loader2, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import API_CONFIG from '../../APIConfig';
+import API_CONFIG from '../../api';
 
 function ResetPassword() {
     const navigate = useNavigate();

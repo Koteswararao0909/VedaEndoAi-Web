@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, Calendar, Loader2, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import API_CONFIG from '../../APIConfig';
+import API_CONFIG from '../../api';
 
 function NewIntake() {
     const navigate = useNavigate();
@@ -45,7 +45,10 @@ function NewIntake() {
 
             const response = await fetch(API_CONFIG.PATIENTS.CREATE, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                },
                 body: JSON.stringify(payload),
             });
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Mail, Lock, Eye, EyeOff, ChevronRight, ChevronLeft, Stethoscope, ShieldCheck, AlertCircle, Loader2 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
-import API_CONFIG from '../../APIConfig';
+import API_CONFIG from '../../api';
 
 function Login() {
     const navigate = useNavigate();

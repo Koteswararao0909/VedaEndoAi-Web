@@ -4,7 +4,7 @@ import {
     Upload, Loader2, AlertCircle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import API_CONFIG from '../APIConfig';
+import API_CONFIG from '../api';
 import jsPDF from 'jspdf';
 import { getMorphology } from '../utils/morphology';
 
@@ -99,7 +99,10 @@ export default function Home() {
         const fetchPatients = async () => {
             if (!userEmail) { navigate('/login'); return; }
             try {
-                const response = await fetch(API_CONFIG.PATIENTS.LIST(userEmail));
+                const userToken = localStorage.getItem('userToken');
+                const response = await fetch(API_CONFIG.PATIENTS.LIST(userEmail), {
+                    headers: { 'Authorization': `Bearer ${userToken}` }
+                });
                 const data = await response.json();
                 if (response.ok) setPatients(data);
                 else setError('Failed to load patient records');

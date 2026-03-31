@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Camera, User, Mail, FileText, Stethoscope, Building2, Navigation, Phone, GraduationCap, Clock, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import API_CONFIG from '../APIConfig';
+import API_CONFIG from '../api';
 
 export default function EditProfessionalProfile() {
     const navigate = useNavigate();

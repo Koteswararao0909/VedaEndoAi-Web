@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import API_CONFIG from '../../APIConfig';
+import API_CONFIG from '../../api';
 
 export default function EditPatient() {
     const navigate = useNavigate();
@@ -31,9 +31,13 @@ export default function EditPatient() {
         setIsSaving(true);
         setError(null);
         try {
+            const userToken = localStorage.getItem('userToken');
             const response = await fetch(API_CONFIG.PATIENTS.UPDATE(patient.id), {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`
+                },
                 body: JSON.stringify(formData)
             });
             if (response.ok) {
