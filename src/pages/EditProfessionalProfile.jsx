@@ -32,9 +32,13 @@ export default function EditProfessionalProfile() {
         setSuccess(false);
 
         try {
+            const userToken = localStorage.getItem('userToken');
             const response = await fetch(API_CONFIG.AUTH.UPDATE_PROFILE, {
                 method: 'POST', // Based on main.py @app.route("/api/auth/update-profile", methods=["POST"])
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${userToken}`
+                },
                 body: JSON.stringify(formData),
             });
 
