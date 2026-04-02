@@ -107,12 +107,14 @@ export default function ActivePatients() {
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <div className="flex flex-col items-end">
-                                        <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</span>
-                                        <span className={`text-[12px] font-black px-3 py-1 rounded-full ${p.is_analyzed ? 'bg-emerald-500/10 text-emerald-500' : 'bg-orange-500/10 text-orange-500'}`}>
-                                            {p.is_analyzed ? 'ANALYZED' : 'PENDING'}
-                                        </span>
-                                    </div>
+                                    {p.is_analyzed && (
+                                        <div className="flex flex-col items-end">
+                                            <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</span>
+                                            <span className="text-[12px] font-black px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500">
+                                                ANALYZED
+                                            </span>
+                                        </div>
+                                    )}
                                     <ChevronRight className="text-slate-300 group-hover:text-blue-500 transition-colors" size={24} />
                                 </div>
                             </div>
