@@ -25,6 +25,17 @@ function NewIntake() {
             newValue = value.replace(/\D/g, '').slice(0, 10);
         }
 
+        if (name === 'bmi') {
+            newValue = value.replace(/[^0-9.]/g, '');
+            const parts = newValue.split('.');
+            if (parts.length > 2) {
+                newValue = parts[0] + '.' + parts.slice(1).join('');
+            }
+            if (newValue !== '' && parseFloat(newValue) > 120) {
+                newValue = '120';
+            }
+        }
+
         setFormData(prev => {
             const nextData = { ...prev, [name]: newValue };
             if (name === 'age' && newValue) {
