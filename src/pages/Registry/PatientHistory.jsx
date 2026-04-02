@@ -36,6 +36,15 @@ export default function PatientHistory() {
         return { label: 'LOW', color: 'text-red-500', bg: 'bg-red-500/10 border-red-500/20' };
     };
 
+    const latestHistory = p.analysis_history?.length > 0
+        ? [...p.analysis_history].sort((a, b) => new Date(b.date) - new Date(a.date))[0]
+        : null;
+
+    const displayCycleDay = p.cycle_day && p.cycle_day !== '--' ? p.cycle_day : (latestHistory?.cycle_day || '--');
+    const displayRo = p.ro_value && p.ro_value !== '--' ? p.ro_value : (latestHistory?.ro_value || '--');
+    const displayLo = p.lo_value && p.lo_value !== '--' ? p.lo_value : (latestHistory?.lo_value || '--');
+    const displayThickness = p.endometrium_thickness && p.endometrium_thickness !== '--' ? p.endometrium_thickness : (latestHistory?.endometrium_thickness || '--');
+
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#030712] p-4 lg:p-8 space-y-6 pb-32">
             {/* Header */}
@@ -65,7 +74,7 @@ export default function PatientHistory() {
                         </div>
                         <div className="bg-blue-500/10 dark:bg-blue-900/30 rounded-2xl p-4 flex flex-col items-center justify-center min-w-[90px] border border-blue-500/20">
                             <span className="text-[11px] text-blue-500 font-black uppercase tracking-widest mb-1">Cycle Day</span>
-                            <span className="text-[28px] font-black text-blue-600 leading-none">{p.cycle_day && p.cycle_day !== '--' ? p.cycle_day : '--'}</span>
+                            <span className="text-[28px] font-black text-blue-600 leading-none">{displayCycleDay}</span>
                         </div>
                     </div>
 
@@ -98,7 +107,7 @@ export default function PatientHistory() {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Right Ovary</span>
-                                <span className="text-xl font-black text-slate-900 dark:text-white">{p.ro_value && p.ro_value !== '--' ? p.ro_value : '--'} mm</span>
+                                <span className="text-xl font-black text-slate-900 dark:text-white">{displayRo} mm</span>
                             </div>
                         </div>
                         <div className="bg-white dark:bg-[#1a1a1a] rounded-3xl p-5 flex items-center gap-4 shadow-sm border border-slate-100 dark:border-slate-800">
@@ -107,7 +116,7 @@ export default function PatientHistory() {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Left Ovary</span>
-                                <span className="text-xl font-black text-slate-900 dark:text-white">{p.lo_value && p.lo_value !== '--' ? p.lo_value : '--'} mm</span>
+                                <span className="text-xl font-black text-slate-900 dark:text-white">{displayLo} mm</span>
                             </div>
                         </div>
                     </div>
@@ -120,8 +129,8 @@ export default function PatientHistory() {
                         <div className="flex flex-col gap-1.5 flex-1">
                             <span className="text-sm font-bold text-slate-500">Endometrium Thickness</span>
                             <div className="flex items-end gap-4">
-                                <span className="text-3xl font-black text-slate-900 dark:text-white leading-none">{p.endometrium_thickness && p.endometrium_thickness !== '--' ? p.endometrium_thickness : '--'} mm</span>
-                                <span className="text-xs font-black text-emerald-500 uppercase tracking-widest pb-1 opacity-80">Morphology: {getMorphology(p.endometrium_thickness && p.endometrium_thickness !== '--' ? p.endometrium_thickness : null)}</span>
+                                <span className="text-3xl font-black text-slate-900 dark:text-white leading-none">{displayThickness} mm</span>
+                                <span className="text-xs font-black text-emerald-500 uppercase tracking-widest pb-1 opacity-80">Morphology: {getMorphology(displayThickness !== '--' ? displayThickness : null)}</span>
                             </div>
                         </div>
                     </div>
