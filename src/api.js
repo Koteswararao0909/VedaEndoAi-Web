@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://180.235.121.245:8011"; // PASTE YOUR IP ADDRESS HERE (e.g., http://192.168.1.10:8000)
+const API_BASE_URL = "http://localhost:8000"; // PASTE YOUR IP ADDRESS HERE (e.g., http://192.168.1.10:8000)
 
 const API_CONFIG = {
     BASE_URL: API_BASE_URL,
@@ -8,6 +8,7 @@ const API_CONFIG = {
         VERIFY_EMAIL: `${API_BASE_URL}/api/auth/verify-email`,
         RESET_PASSWORD: `${API_BASE_URL}/api/auth/reset-password`,
         UPDATE_PROFILE: `${API_BASE_URL}/api/auth/update-profile`,
+        DELETE_ACCOUNT: `${API_BASE_URL}/api/auth/delete-account`,
     },
     PATIENTS: {
         LIST: (email) => `${API_BASE_URL}/patients/?email=${email}`,

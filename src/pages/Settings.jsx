@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Bell, Moon, Shield, FileText, ArrowRightSquare, Trash2, ChevronRight, User, Loader2 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { useNavigate } from 'react-router-dom';
+import API_CONFIG from '../api';
 
 export default function Settings() {
     const navigate = useNavigate();
@@ -16,17 +17,39 @@ export default function Settings() {
         setIsLoggingOut(true);
         setTimeout(() => {
             localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userEmail');
             navigate('/login');
         }, 1200);
     };
 
-    const handleDeleteAccount = () => {
+    const handleDeleteAccount = async () => {
         setIsDeleting(true);
-        setTimeout(() => {
-            // Simulate deletion logic
-            localStorage.removeItem('isAuthenticated');
-            navigate('/login');
-        }, 1500);
+        try {
+            const userToken = localStorage.getItem('userToken');
+            const response = await fetch(API_CONFIG.AUTH.DELETE_ACCOUNT, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${userToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                localStorage.removeItem('isAuthenticated');
+                localStorage.removeItem('userToken');
+                localStorage.removeItem('userEmail');
+                navigate('/login');
+            } else {
+                const data = await response.json();
+                alert(data.detail || 'Failed to delete account');
+            }
+        } catch (err) {
+            alert('Connection error during account deletion');
+        } finally {
+            setIsDeleting(false);
+            setShowDeleteModal(false);
+        }
     };
 
     return (
