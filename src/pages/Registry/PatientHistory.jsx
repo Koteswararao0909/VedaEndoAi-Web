@@ -89,10 +89,12 @@ export default function PatientHistory() {
                             <span className="text-[10px] lg:text-[12px] text-slate-400 font-black uppercase tracking-widest">Age</span>
                             <span className="text-[16px] lg:text-[18px] font-black text-slate-900 dark:text-white tracking-tight">{p.age} Yrs</span>
                         </div>
-                        <div className="flex flex-col gap-1">
-                            <span className="text-[10px] lg:text-[12px] text-slate-400 font-black uppercase tracking-widest">Baseline Condition</span>
-                            <span className={`text-[16px] lg:text-[18px] font-black tracking-tight ${p.condition ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`}>{p.condition || 'Not Provided'}</span>
-                        </div>
+                        {p.condition && p.condition !== '--' && p.condition !== 'Not Provided' && (
+                            <div className="flex flex-col gap-1">
+                                <span className="text-[10px] lg:text-[12px] text-slate-400 font-black uppercase tracking-widest">Baseline Condition</span>
+                                <span className="text-[16px] lg:text-[18px] font-black tracking-tight text-slate-900 dark:text-white">{p.condition}</span>
+                            </div>
+                        )}
                     </div>
                 </div>
 
