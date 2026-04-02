@@ -121,7 +121,7 @@ export default function Registry() {
                             </div>
                             <div className="flex justify-between items-center text-sm text-slate-500">
                                 <span>Age: {p.age || '--'}</span>
-                                <span>Reg: {p.created_at ? new Date(p.created_at).toLocaleDateString() : '--'}</span>
+                                <span>Reg: {p.created_at ? new Date(p.created_at).toLocaleDateString() : (p.last_visit || '--')}</span>
                             </div>
                         </div>
                     ))

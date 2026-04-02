@@ -19,7 +19,24 @@ function NewIntake() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        let newValue = value;
+
+        if (name === 'phone') {
+            newValue = value.replace(/\D/g, '').slice(0, 10);
+        }
+
+        setFormData(prev => {
+            const nextData = { ...prev, [name]: newValue };
+            if (name === 'age' && newValue) {
+                const ageNum = parseInt(newValue, 10);
+                if (!isNaN(ageNum)) {
+                    const currentYear = new Date().getFullYear();
+                    const yearOfBirth = currentYear - ageNum;
+                    nextData.dob = `${yearOfBirth}-01-01`;
+                }
+            }
+            return nextData;
+        });
     };
 
     // Logic for BMI is simplified to direct input per screenshot requirement
